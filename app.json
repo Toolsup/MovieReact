@@ -1,0 +1,35 @@
+{
+  "name": "ReactNativeBlank",
+  "displayName": "Android Project",
+  "expo": {
+    "name": "ReactNativeBlank",
+    "slug": "ReactNativeTwo",
+    "privacy": "public",
+    "sdkVersion": "35.0.0",
+    "platforms": [
+      "ios",
+      "android",
+      "web"
+    ],
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./images/image_splash.png",
+    "splash": {
+      "image": "./images/image_splash.png",
+      "resizeMode": "cover",
+      "backgroundColor": "#ffffff"
+    },
+    "updates": {
+      "fallbackToCacheTimeout": 0
+    },
+    "assetBundlePatterns": [
+      "**/*"
+    ],
+    "ios": {
+      "supportsTablet": true
+    },
+    "android": {
+      "package": "com.reactnativeblank"
+    }
+  }
+}
