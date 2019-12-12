@@ -13,7 +13,6 @@ class ItemSuggest extends React.PureComponent{
 
     constructor(props){
         super(props)
-        console.log('url suggest = ' + this.props.mUrl);
     }
 
     render(){
@@ -93,7 +92,8 @@ class DetailActivity extends React.Component{
             this.getActor();
             this.getRecommend();
         }
-        handleAndroidBackButton(this.onPressBack);
+
+        handleAndroidBackButton(this.onPressBack)
        
     }
 
@@ -127,7 +127,7 @@ class DetailActivity extends React.Component{
     }
 
     componentDidUpdate(){
-        console.log('upadte detail');
+        
     }
     
 
@@ -150,8 +150,6 @@ class DetailActivity extends React.Component{
             //truyen props vao day
         }); 
         let mDate = '';
-
-        console.log('getdetail = ' +this.type);
 
         const dataDetail = await request.getDetail(this.id, this.type);
      
@@ -180,12 +178,14 @@ class DetailActivity extends React.Component{
     }
 
     onPressBack = () => {
+
+        let key = this.props.navigation.state.params.key;
+        console.log('detail key = ' + key);
+        
         this.props.navigation.goBack(null);
     }
 
     render() {
-
-        console.log('render','render ahu');
 
         if(!this.state.isLoading) {
             let seasonsList;
@@ -239,26 +239,26 @@ class DetailActivity extends React.Component{
                 </View>
             }else{
                 suggestList = <View style={{marginBottom :84}}>
-                <Text style={{marginLeft: 8, fontWeight : 'bold',marginTop : 8,  marginRight: 8, color: '#fff',textAlignVertical: "center",lineHeight: 22, fontSize: 14}} numberOfLines ={1}>{'Suggest:'}</Text> 
+                    <Text style={{marginLeft: 8, fontWeight : 'bold',marginTop : 8,  marginRight: 8, color: '#fff',textAlignVertical: "center",lineHeight: 22, fontSize: 14}} numberOfLines ={1}>{'Suggest:'}</Text> 
 
-                <FlatList 
-                    style = {{height : 240}}
-                    showsHorizontalScrollIndicator={false}
-                    horizontal ={true}
-                    data = {this.state.suggest}
-                    renderItem = {({ item }) => (
-                        <ItemSuggest
-                            pressItemSG = {this.pressItemMovie(item.title, item.id, this.type)}
-                            mTitle = {item.title}
-                            mUrl = {"https://image.tmdb.org/t/p/w342".concat(item.poster_path)}
-                        />
-                    )}
-                    keyExtractor={(item, index) => index.toString()}
-                
-                
-                />    
+                    <FlatList 
+                        style = {{height : 240}}
+                        showsHorizontalScrollIndicator={false}
+                        horizontal ={true}
+                        data = {this.state.suggest}
+                        renderItem = {({ item }) => (
+                            <ItemSuggest
+                                pressItemSG = {this.pressItemMovie(item.title, item.id, this.type)}
+                                mTitle = {item.title}
+                                mUrl = {"https://image.tmdb.org/t/p/w342".concat(item.poster_path)}
+                            />
+                        )}
+                        keyExtractor={(item, index) => index.toString()}
+                    
+                    
+                    />    
 
-            </View>
+                </View>
             }
       
             return (

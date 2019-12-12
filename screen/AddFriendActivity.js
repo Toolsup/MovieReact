@@ -54,7 +54,7 @@ class AddFriendActivity extends React.Component{
 
     onPressItem = (mTitle, mId, mType) => () => {
         const {navigate} = this.props.navigation;
-        navigate('DetailAhi', {title: mTitle, id: mId, type: mType})
+        navigate({routeName:'Detail', params: {title: mTitle, id: mId, type: mType}})
     }
      
 
@@ -115,43 +115,49 @@ class AddFriendActivity extends React.Component{
         );
     };
 
+  
     componentWillUnmount(){
-        this._isMount = false;
         console.log('willmount un');
-        removeAndroidBackButtonHandler();
+        this._isMount = false;
     }
 
     componentWillMount(){
+        console.log('willmount');
         handleAndroidBackButton(this.showDialogExitApp); 
     }
 
     componentDidMount(){
-        this._isMount = true; 
-        this.getData(1);       
+        this._isMount = true;
+        this.getData(1);
        
     }
 
 
     showDialogExitApp = () => {
-        console.log('willmount back')
-        Alert.alert(
-            '',
-            'Do you want exit app?',
-            [
-            {
-                text: 'Cancel',
-                onPress: () => console.log('Cancel Pressed'),
-                style: 'cancel',
-            },
-            {
-                text: 'OK', 
-                onPress: () =>  BackHandler.exitApp(),
-            
-            },
-            ],
-            {cancelable: false},
-        );
-        return true;
+        let key = this.props.navigation.state.params.key;
+        console.log('onback exit = ' + key)
+        // if(key === 'ahi'){
+        //     Alert.alert(
+        //         '',
+        //         'Do you want exit app?',
+        //         [
+        //             {
+        //                 text: 'Cancel',
+        //                 onPress: () => console.log('Cancel Pressed'),
+        //                 style: 'cancel',
+        //             },
+        //             {
+        //                 text: 'OK', 
+        //                 onPress: () =>  BackHandler.exitApp(),
+                    
+        //             },
+        //         ],
+        //         {cancelable: false},
+        //     );
+        //     return true;
+        // }else{
+        //     this.props.navigation.goBack(null);
+        // }
     }
 
     refreshHandler = () => {

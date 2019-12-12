@@ -18,6 +18,9 @@ const MainTab = createStackNavigator (
         navigationOptions:{
             header: null,
         },
+        params:{
+          key: 'ahi',
+        },
     },
   },
 )
@@ -27,7 +30,10 @@ const SettingsTab = createStackNavigator(
     Setting: {
       screen: SettingActivity,
       navigationOptions:{
-          header: null,
+        header: null,
+      },
+      params:{
+        key: 'setting',
       },
     },
   },
@@ -39,6 +45,9 @@ const DataTab = createStackNavigator(
       screen: PagerFragment,
       navigationOptions:{
         header: null,
+      },
+      params:{
+        key: 'data',
       },
     },
   },
@@ -67,6 +76,9 @@ const DetailTask = createStackNavigator(
       navigationOptions:{
         header: null,
       },
+      params:{
+        key: 'detail',
+      },
     },
   },
 );
@@ -78,6 +90,9 @@ const CategoryTab = createStackNavigator(
       screen: CategoryActivity,
       navigationOptions:{
           header: null,
+      },
+      params:{
+        key: 'category',
       },
     },
   },
