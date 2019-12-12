@@ -179,8 +179,6 @@ class DetailActivity extends React.Component{
 
     }
 
-   
-
     onPressBack = () => {
         this.props.navigation.goBack(null);
     }

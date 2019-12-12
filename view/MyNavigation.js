@@ -7,6 +7,7 @@ import PagerFragment from '../screen/PagerFragment';
 import SearchActivity from '../screen/SearchActivity';
 import CategoryActivity from '../screen/CategoryActivity';
 import DetailActivity from '../screen/DetailActivity';
+import SettingActivity from '../screen/SettingActivity';
 import { StyleSheet, ScrollView , Text, View, Button, StatusBar, Image, ActivityIndicator, TouchableOpacity, FlatList } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 
@@ -24,7 +25,7 @@ const MainTab = createStackNavigator (
 const SettingsTab = createStackNavigator(
   {
     Setting: {
-      screen: AddFriendActivity,
+      screen: SettingActivity,
       navigationOptions:{
           header: null,
       },
@@ -97,9 +98,9 @@ const SearchTab = createStackNavigator(
 const MainApp = createBottomTabNavigator(
   {
     Main: MainTab ,
-    Settings: SettingsTab ,
-    Data: DataTab ,
     Category: CategoryTab ,
+    Data: DataTab ,
+    Settings: SettingsTab ,
   },
   {
     defaultNavigationOptions: ({ navigation }) => ({
