@@ -92,8 +92,6 @@ class DetailActivity extends React.Component{
             this.getActor();
             this.getRecommend();
         }
-
-        handleAndroidBackButton(this.onPressBack)
        
     }
 
