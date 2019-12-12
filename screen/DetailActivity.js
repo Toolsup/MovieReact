@@ -1,12 +1,21 @@
 import React ,{Component} from 'react';
-import {InteractionManager} from 'react-native';
-import { StyleSheet, ScrollView , SafeAreaView,  FlatList, Text, View, StatusBar, Image, TouchableOpacity } from 'react-native';
+import {InteractionManager, BackHandler} from 'react-native';
+import { StyleSheet, ScrollView , SafeAreaView, ActivityIndicator, FlatList, Text, View, StatusBar, Image, TouchableOpacity } from 'react-native';
 import ApiRequest from '../networking/ApiRequest';
 import Icon from 'react-native-vector-icons/Entypo';
 import { NavigationActions } from 'react-navigation';
+import {handleAndroidBackButton} from '../utils/Utils';
+
+
 
 
 class ItemSuggest extends React.PureComponent{
+
+    constructor(props){
+        super(props)
+        console.log('url suggest = ' + this.props.mUrl);
+    }
+
     render(){
         return(
             <TouchableOpacity style={styles.container}
@@ -74,18 +83,23 @@ class DetailActivity extends React.Component{
     }
 
     componentWillUnmount(){
-        
+        console.log('onback unmount detail')
     }
 
     componentDidMount(){
        
         if(this.state.isLoading){
             this.getDetail();
-          
-           
+            this.getActor();
+            this.getRecommend();
         }
+        handleAndroidBackButton(this.onPressBack);
        
     }
+
+   
+
+   
 
     pressItemSeasons = (nameSeasons, seasonId) => () =>{
 
@@ -106,6 +120,16 @@ class DetailActivity extends React.Component{
         })
         
     }
+
+
+    componentWillMount(){
+        
+    }
+
+    componentDidUpdate(){
+        console.log('upadte detail');
+    }
+    
 
     getRecommend = async() => {
         const reuqest = new ApiRequest({});
@@ -140,8 +164,8 @@ class DetailActivity extends React.Component{
             mDate = dataDetail.title;
         }
 
-        const poster_path_data = "https://image.tmdb.org/t/p/w500".concat(dataDetail.poster_path);
-        const backdrop_path_data = "https://image.tmdb.org/t/p/original".concat(dataDetail.backdrop_path);
+        const poster_path_data = "https://image.tmdb.org/t/p/w342".concat(dataDetail.poster_path);
+        const backdrop_path_data = "https://image.tmdb.org/t/p/w1280".concat(dataDetail.backdrop_path);
        
         this.setState({
             isLoading : false,
@@ -155,10 +179,7 @@ class DetailActivity extends React.Component{
 
     }
 
-    componentDidUpdate(){
-        console.log('upadte detail');
-    }
-    
+   
 
     onPressBack = () => {
         this.props.navigation.goBack(null);
@@ -184,7 +205,7 @@ class DetailActivity extends React.Component{
                                             <ItemSeasons
                                                 pressItemSs = {this.pressItemSeasons(item.name, item.id)}
                                                 mTitle = {item.name}
-                                                mUrl = {"https://image.tmdb.org/t/p/w500".concat(item.poster_path)}
+                                                mUrl = {"https://image.tmdb.org/t/p/w342".concat(item.poster_path)}
                                             />
                                         )}
                                         keyExtractor={(item, index) => index.toString()}
@@ -209,7 +230,7 @@ class DetailActivity extends React.Component{
                             <ItemSuggest
                                 pressItemSG = {this.pressItemMovie(item.original_name, item.id, this.type)}
                                 mTitle = {item.original_name}
-                                mUrl = {"https://image.tmdb.org/t/p/w500".concat(item.poster_path)}
+                                mUrl = {"https://image.tmdb.org/t/p/w342".concat(item.poster_path)}
                             />
                         )}
                         keyExtractor={(item, index) => index.toString()}
@@ -231,7 +252,7 @@ class DetailActivity extends React.Component{
                         <ItemSuggest
                             pressItemSG = {this.pressItemMovie(item.title, item.id, this.type)}
                             mTitle = {item.title}
-                            mUrl = {"https://image.tmdb.org/t/p/w500".concat(item.poster_path)}
+                            mUrl = {"https://image.tmdb.org/t/p/w342".concat(item.poster_path)}
                         />
                     )}
                     keyExtractor={(item, index) => index.toString()}
@@ -287,7 +308,13 @@ class DetailActivity extends React.Component{
                 </View>      
             );
         }else{
-            return <View></View>
+            return <View style={{flex:1 , backgroundColor:'#000', justifyContent: 'center'}}>
+                        <ActivityIndicator 
+                            size={'large'}
+                            animating= {true}
+                            color={'#f56642'}
+                        />
+                </View>
         }
     }
 

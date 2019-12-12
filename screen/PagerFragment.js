@@ -67,7 +67,7 @@ class PagerFragment extends React.Component{
         
         return (
       
-            <View style= {{flex: 1, flexDirection : 'column'}}>
+            <View style= {{flex: 1}}>
                 <StatusBar hidden={false} />
         
                 <View style={{width:'100%', height:64, backgroundColor: '#1A98DA', flexDirection: 'row',  marginTop: StatusBar.currentHeight}}>
@@ -79,8 +79,7 @@ class PagerFragment extends React.Component{
                     <Text style={{fontWeight : 'bold',color: '#fff', alignItems: 'center',justifyContent: 'center', textAlignVertical: "center", textAlign: "center", fontSize:18, textAlign:'center'}}>{'Movie apps'}</Text>
                 </View>
                 <View style={{flex:1}}>
-
-               
+            
                     <IndicatorViewPager
                             style={{flexDirection: 'column-reverse', flex:1, backgroundColor:'white'}}
                             indicator={this._renderTitleIndicator()}> 
@@ -133,10 +132,7 @@ class MovieFragment extends React.Component{
     
 
     getData = async(page, type) =>{
-
-       
             try{
-               
                 const request = new ApiRequest({
                     //truyen props vao day
                 }); 
@@ -147,7 +143,6 @@ class MovieFragment extends React.Component{
                         isLoading: true,
                     })
     
-                    
                     this.setState({
                         data: this.state.data.concat(dataDiscover.results),
                         isLoading: false,
@@ -210,8 +205,6 @@ class MovieFragment extends React.Component{
   
 
     render() {
-
-        console.log('dau ma render')
         
         return (
             
@@ -225,7 +218,7 @@ class MovieFragment extends React.Component{
                                     <ItemMovie
                                         pressItem = {this.onPressItem(item.title, item.id, "movie")}
                                         mTitle = {item.title}
-                                        mUrl = {"https://image.tmdb.org/t/p/w500".concat(item.poster_path)}
+                                        mUrl = {"https://image.tmdb.org/t/p/w342".concat(item.poster_path)}
                                     />
                                 )}
                                 keyExtractor={(item, index) => index.toString()}
@@ -374,7 +367,7 @@ class TVShowFragment extends React.Component{
                                     <ItemShows
                                         pressItem = {this.onPressItem(item.original_name, item.id, "tv")}
                                         mTitle = {item.original_name}
-                                        mUrl = {"https://image.tmdb.org/t/p/w500".concat(item.poster_path)}
+                                        mUrl = {"https://image.tmdb.org/t/p/w342".concat(item.poster_path)}
                                     />
                                 )}
                                 keyExtractor={(item, index) => index.toString()}

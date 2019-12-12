@@ -18,6 +18,15 @@ class ApiRequest{
     
     }
 
+    getCategory = async (type) => {
+        return await fetch('https://api.themoviedb.org/3/genre/' + type + '/list?api_key=545dee6baf25392fcd4458dc7794dce1&language=en-US', {
+          method: 'GET',
+        }).then((response) => response.json())
+        .then((responseJson) => {
+            return responseJson;
+        });
+    }
+
     getDetail = async(id , type) => {
         return await fetch('https://api.themoviedb.org/3/'+type+'/'+id+'?api_key=545dee6baf25392fcd4458dc7794dce1&language=en-US', {
             method: 'GET',

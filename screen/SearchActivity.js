@@ -6,12 +6,15 @@ import Icon from 'react-native-vector-icons/Entypo';
 class SearchActivity extends React.Component{
 
     constructor(props){
-        super.props();
+        super(props)
     }
 
     render(){
         return(
-            <View></View>
+            <View>
+                
+            </View>
         );
     }
 }
+export default SearchActivity;

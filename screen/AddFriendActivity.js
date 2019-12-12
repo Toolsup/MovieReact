@@ -1,10 +1,13 @@
 import React, {Component, PureComponent} from 'react';
-import {Dimensions} from 'react-native';
-import { StyleSheet, Text, View, Button, StatusBar, RefreshControl, Image, ActivityIndicator, TouchableOpacity, FlatList } from 'react-native';
+import {Dimensions, BackHandler} from 'react-native';
+import { StyleSheet, Text, View, Button, Alert, StatusBar, RefreshControl, Image, ActivityIndicator, TouchableOpacity, FlatList } from 'react-native';
 import { ToolbarAndroid } from 'react-native-gesture-handler';
 import ApiRequest from '../networking/ApiRequest';
 import {DOMAIN_API} from '../networking/ApiRequest'
 import Icon from 'react-native-vector-icons/Entypo';
+import IconAwesome from 'react-native-vector-icons/FontAwesome';
+import {handleAndroidBackButton , removeAndroidBackButtonHandler} from '../utils/Utils';
+
 
 
 
@@ -51,7 +54,7 @@ class AddFriendActivity extends React.Component{
 
     onPressItem = (mTitle, mId, mType) => () => {
         const {navigate} = this.props.navigation;
-        navigate('Detail', {title: mTitle, id: mId, type: mType})
+        navigate('DetailAhi', {title: mTitle, id: mId, type: mType})
     }
      
 
@@ -114,11 +117,41 @@ class AddFriendActivity extends React.Component{
 
     componentWillUnmount(){
         this._isMount = false;
+        console.log('willmount un');
+        removeAndroidBackButtonHandler();
+    }
+
+    componentWillMount(){
+        handleAndroidBackButton(this.showDialogExitApp); 
     }
 
     componentDidMount(){
         this._isMount = true; 
-        this.getData(1);
+        this.getData(1);       
+       
+    }
+
+
+    showDialogExitApp = () => {
+        console.log('willmount back')
+        Alert.alert(
+            '',
+            'Do you want exit app?',
+            [
+            {
+                text: 'Cancel',
+                onPress: () => console.log('Cancel Pressed'),
+                style: 'cancel',
+            },
+            {
+                text: 'OK', 
+                onPress: () =>  BackHandler.exitApp(),
+            
+            },
+            ],
+            {cancelable: false},
+        );
+        return true;
     }
 
     refreshHandler = () => {
@@ -143,10 +176,16 @@ class AddFriendActivity extends React.Component{
                 <View style= {{flex: 1}}>            
                     <View style={{width:'100%', height:64, backgroundColor: '#1A98DA', flexDirection: 'row',  marginTop: StatusBar.currentHeight}}>
                         <View style={{width:64, height: 64, justifyContent: 'center', marginLeft: 16}}>
-                            <Icon size={24}  name='chevron-thin-left' color="#fff"/>
+                            <Icon size={24}  name='chevron-thin-left' color="#fff" onPress= {this.showDialogExitApp}/>
                         </View>
 
-                        <Text style={{fontWeight : 'bold',color: '#fff', alignItems: 'center',justifyContent: 'center', textAlignVertical: "center", textAlign: "center", fontSize:18, textAlign:'center'}}>{'Movie apps'}</Text>
+                        <Text style={{fontWeight : 'bold',color: '#fff', alignItems: 'center',justifyContent: 'center', textAlignVertical: "center", fontSize:18, textAlign:'center'}}>{'Movie apps'}</Text>
+                    
+                    
+                        <View style={{flex: 1, flexDirection: 'row', marginRight: 18, justifyContent: 'flex-end', alignItems: 'center', marginLeft: 16}}>
+                            <IconAwesome size={24}  name='search' color="#fff"/>
+                        </View>
+
                     </View>
 
                     <FlatList 
@@ -156,7 +195,7 @@ class AddFriendActivity extends React.Component{
                             <Item
                                 pressItem = {this.onPressItem(item.original_name, item.id, "tv")}
                                 mTitle = {item.original_name}
-                                mUrl = {"https://image.tmdb.org/t/p/w500".concat(item.poster_path)}
+                                mUrl = {"https://image.tmdb.org/t/p/w342".concat(item.poster_path)}
                             />
                         )}
                         keyExtractor={(item, index) => index.toString()}

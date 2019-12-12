@@ -4,6 +4,8 @@ import {createStackNavigator} from 'react-navigation-stack';
 import {createBottomTabNavigator} from 'react-navigation-tabs';
 import AddFriendActivity from '../screen/AddFriendActivity';
 import PagerFragment from '../screen/PagerFragment';
+import SearchActivity from '../screen/SearchActivity';
+import CategoryActivity from '../screen/CategoryActivity';
 import DetailActivity from '../screen/DetailActivity';
 import { StyleSheet, ScrollView , Text, View, Button, StatusBar, Image, ActivityIndicator, TouchableOpacity, FlatList } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
@@ -21,7 +23,7 @@ const MainTab = createStackNavigator (
 
 const SettingsTab = createStackNavigator(
   {
-    List: {
+    Setting: {
       screen: AddFriendActivity,
       navigationOptions:{
           header: null,
@@ -68,10 +70,11 @@ const DetailTask = createStackNavigator(
   },
 );
 
-const AhiTab = createStackNavigator(
+
+const CategoryTab = createStackNavigator(
   {
-    List: {
-      screen: AddFriendActivity,
+    Category: {
+      screen: CategoryActivity,
       navigationOptions:{
           header: null,
       },
@@ -79,40 +82,51 @@ const AhiTab = createStackNavigator(
   },
 );
   
-// const navigationData = createAppContainer(MainNavigator);
+
+const SearchTab = createStackNavigator(
+  {
+    Search: {
+      screen: SearchActivity,
+      navigationOptions:{
+          header: null,
+      },
+    },
+  },
+);
+  
 const MainApp = createBottomTabNavigator(
   {
-    MainTab: MainTab ,
-    SettingsTab: SettingsTab ,
-    DiscoverTab: DataTab ,
-    SearchTab: AhiTab ,
+    Main: MainTab ,
+    Settings: SettingsTab ,
+    Data: DataTab ,
+    Category: CategoryTab ,
   },
   {
     defaultNavigationOptions: ({ navigation }) => ({
       tabBarIcon: ({ focused, horizontal, tintColor }) => {
         const { routeName } = navigation.state;
-        if (routeName === 'MainTab') {
+        if (routeName === 'Main') {
           return (
             <View style={{width:64, height: 64, justifyContent: 'center', alignItems: 'center'}}>
               <Icon size={24}  name='home' color="#000"/>
             </View>
           );
-        } else if (routeName === 'SettingsTab') {
+        } else if (routeName === 'Settings') {
           return (
             <View style={{width:64, height: 64, justifyContent: 'center', alignItems: 'center'}}>
               <Icon size={24}  name='cog' color="#000"/>
             </View>
           );
-        } else if (routeName === 'DiscoverTab') {
+        } else if (routeName === 'Data') {
           return (
             <View style={{width:64, height: 64, alignItems: 'center', justifyContent: 'center'}}>
               <Icon size={24}  name='leanpub' color="#000"/>
             </View>
           );
-        } else {
+        } else if (routeName === 'Category') {
           return (
             <View style={{width:64, height: 64, justifyContent: 'center', alignItems: 'center'}}>
-              <Icon size={24}  name='search' color="#000"/>
+              <Icon size={24}  name='list-alt' color="#000"/>
             </View>
           );
         }
